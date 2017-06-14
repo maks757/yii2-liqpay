@@ -10,8 +10,22 @@
 
 namespace maks757\liqpay\sec;
 
+use maks757\liqpay\sec\behaviors\PayBehavior;
+use yii\base\Component;
 
-class LiqpayComponent
+/**
+ * @method paySend()
+*/
+
+class LiqpayComponent extends Component
 {
+    public function behaviors()
+    {
+        //(new LiqpayComponent())->paySend();
 
+        return array_merge(parent::behaviors(),
+            [
+                'myBehavior2' => PayBehavior::className(),
+            ]);
+    }
 }
