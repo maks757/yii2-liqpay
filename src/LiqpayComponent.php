@@ -14,18 +14,16 @@ use maks757\liqpay\sec\behaviors\PayBehavior;
 use yii\base\Component;
 
 /**
- * @method paySend()
+ * @method paySend() string
 */
 
 class LiqpayComponent extends Component
 {
     public function behaviors()
     {
-        //(new LiqpayComponent())->paySend();
-
         return array_merge(parent::behaviors(),
-            [
-                'myBehavior2' => PayBehavior::className(),
-            ]);
+        [
+            'myBehavior2' => PayBehavior::className(),
+        ]);
     }
 }
