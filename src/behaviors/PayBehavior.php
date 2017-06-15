@@ -8,7 +8,7 @@
  * Time: 1:13
  */
 
-namespace maks757\yii2_liqpay\sec\behaviors;
+namespace maks757\yii2_liqpay\src\behaviors;
 
 
 use maks757\liqpay\LiqPay;
@@ -22,18 +22,18 @@ class PayBehavior extends Behavior
      * @param $private_key string
      * @return string
      */
-    public function paySend($public_key, $private_key, $amount, $currency = 'UAH', $description = '')
+    public function paySend($public_key, $private_key, $amount, $currency = 'UAH', $description = 'none')
     {
         $liqpay = new LiqPay($public_key, $private_key);
-        $html = $liqpay->cnb_form(array(
+        $html = $liqpay->cnb_form([
             'action'         => 'paydonate',
             'amount'         => $amount,
             'currency'       => $currency,
             'description'    => $description,
-            'order_id'       => uniqid(\Yii::$app->security->generateRandomKey()),
+            'order_id'       => \Yii::$app->security->generateRandomString(),
             'version'        => '3',
-            'test'           => 'sandbox'
-        ));
+            'sandbox'           => 1
+        ]);
         return $html;
     }
 }

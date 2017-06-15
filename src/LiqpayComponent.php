@@ -8,9 +8,9 @@
  * Time: 0:39
  */
 
-namespace maks757\yii2_liqpay;
+namespace maks757\yii2_liqpay\src;
 
-use maks757\yii2_liqpay\sec\behaviors\PayBehavior;
+use maks757\yii2_liqpay\src\behaviors\PayBehavior;
 use yii\base\Component;
 
 /**
