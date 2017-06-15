@@ -8,22 +8,21 @@
  * Time: 0:39
  */
 
-namespace maks757\liqpay\sec;
+namespace maks757\yii2_liqpay;
 
-use maks757\liqpay\sec\behaviors\PayBehavior;
+use maks757\yii2_liqpay\sec\behaviors\PayBehavior;
 use yii\base\Component;
 
 /**
- * @method paySend() string
+ * @method paySend(string $public_key, string $private_key, string $amount, string $currency = 'UAH', string $description = '')
 */
 
 class LiqpayComponent extends Component
 {
     public function behaviors()
     {
-        return array_merge(parent::behaviors(),
-        [
+        return [
             'myBehavior2' => PayBehavior::className(),
-        ]);
+        ];
     }
 }

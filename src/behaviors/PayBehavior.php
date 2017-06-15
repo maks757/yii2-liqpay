@@ -8,7 +8,7 @@
  * Time: 1:13
  */
 
-namespace maks757\liqpay\sec\behaviors;
+namespace maks757\yii2_liqpay\sec\behaviors;
 
 
 use maks757\liqpay\LiqPay;
