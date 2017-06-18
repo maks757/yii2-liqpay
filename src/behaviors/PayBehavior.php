@@ -18,21 +18,52 @@ use yii\base\Security;
 class PayBehavior extends Behavior
 {
     /**
-     * @param $public_key string
-     * @param $private_key string
+     * @param $amount integer
+     * @param $currency string
+     * @param $description string
+     * @param $result_url string
      * @return string
      */
-    public function paySend($public_key, $private_key, $amount, $currency = 'UAH', $description = 'none')
+    public function paySend($amount, $currency = 'UAH', $description = '', $result_url = '')
     {
-        $liqpay = new LiqPay($public_key, $private_key);
+        $liqpay = new LiqPay($this->owner->public_key, $this->owner->private_key);
         $html = $liqpay->cnb_form([
-            'action'         => 'paydonate',
-            'amount'         => $amount,
-            'currency'       => $currency,
-            'description'    => $description,
-            'order_id'       => \Yii::$app->security->generateRandomString(),
-            'version'        => '3',
-            'sandbox'           => 1
+            'action'      => 'paydonate',
+            'amount'      => $amount,
+            'currency'    => $currency,
+            'description' => $description,
+            'order_id'    => \Yii::$app->security->generateRandomString(),
+            'version'     => '3',
+            'sandbox'     => 1,
+            'result_url'  => $result_url
+        ]);
+        return $html;
+    }
+
+    /**
+     * @param $date_start string
+     * @param $type string
+     * @param $amount integer
+     * @param $currency string
+     * @param $description string
+     * @param $result_url string
+     * @return string
+     */
+    public function payRegularSend($date_start, $type, $amount, $currency = 'UAH', $description = '', $result_url = '')
+    {
+        $liqpay = new LiqPay($this->owner->public_key, $this->owner->private_key);
+        $html = $liqpay->cnb_form([
+            'action'                => 'paydonate',
+            'amount'                => $amount,
+            'currency'              => $currency,
+            'description'           => $description,
+            'order_id'              => \Yii::$app->security->generateRandomString(),
+            'version'               => '3',
+            'sandbox'               => 1,
+            'result_url'            => $result_url,
+            'subscribe'             => true,
+            'subscribe_date_start'  => $date_start,
+            'subscribe_periodicity' => $type,
         ]);
         return $html;
     }
